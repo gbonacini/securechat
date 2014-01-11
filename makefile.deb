@@ -1,0 +1,28 @@
+VERSION:="\"$(shell cat version)\""
+SHELLVERSION:=$(shell cat version)
+PLATFORM=$(shell dpkg --print-architecture)
+BINARY=./src/securechat
+
+all: deb
+
+clean:
+	-rm -rf securechat_$(VERSION)_$(PLATFORM).deb securechat_$(VERSION)_$(PLATFORM)
+
+rebuild: clean all 
+
+deb: $(BINARY) copyright changelog control
+	-mkdir -p securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/doc/securechat
+	-mkdir securechat_$(SHELLVERSION)_$(PLATFORM)/usr/bin
+	-mkdir securechat_$(SHELLVERSION)_$(PLATFORM)/DEBIAN
+	-mkdir -p securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/man/man1
+	cp securechat.1 securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/man/man1/
+	gzip --force --best securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/man/man1/securechat.1
+	cp $(BINARY) securechat_$(SHELLVERSION)_$(PLATFORM)/usr/bin
+	strip ./securechat_$(SHELLVERSION)_$(PLATFORM)/usr/bin/securechat
+	cp changelog securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/doc/securechat/
+	gzip --force --best ./securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/doc/securechat/changelog
+	cp copyright securechat_$(SHELLVERSION)_$(PLATFORM)/usr/share/doc/securechat/
+	cat control | sed -e 's/VERSION/$(SHELLVERSION)/g' | sed -e 's/PLATFORM/$(PLATFORM)/g' > securechat_$(SHELLVERSION)_$(PLATFORM)/DEBIAN/control
+	dpkg-deb -z8 -Zgzip --build securechat_$(SHELLVERSION)_$(PLATFORM)
+	dpkg-deb -I securechat_$(SHELLVERSION)_$(PLATFORM).deb
+	dpkg-deb -c securechat_$(SHELLVERSION)_$(PLATFORM).deb

@@ -1,0 +1,34 @@
+.TH SECURECHAT 1 "JULY 2013" Linux "User Manuals"                                  
+.SH NAME                                                                     
+securechat \- Secure chat SSL based
+.SH SYNOPSIS                                                                 
+.B securechat [-d] 
+.SH DESCRIPTION                                                              
+.B securechat                                                                       
+securechat is a chat program that use a SSL socket to crypt the comunications.
+It can be started in server or client mode. To configure the server or status mode and the local or remote IP and port, press F6.
+.SH OPTIONS                                                                  
+.IP -d                                                                       
+Debug mode. Set verbose logging and produce a log file.
+.SH PARAMETERS                                                                    
+Parameters read from the environment.     
+.SS Secure Chat Variables     
+This program read this variable from the environment.    
+.SS SCBLACKLIST        
+This variable can be used to set a white/black list of the openssl algorithms using the format of the "openssl ciphers" ( see the related man page for details ). If this variable is not present or contains a wrong value, the default blacklist is "!aNULL:!eNULL:!3DES:!SHA1:!EXPORT:!EXPORT56:MEDIUM". 
+.SH FILES                                                                    
+.IP /tmp/securechat.log
+The debug file created in /tmp if securechat was launched in debug mode.
+.IP ~/.securechat/server.key
+This is the secret server private key.
+.IP ~/.securechat/server.pem
+This is the server public key.
+.IP ~/.securechat/TrustStore.pem 
+.RS
+This is the client keystore. In this files can be added all the server public keys.
+.SH BUGS                                                                     
+This program is a beta, some bugs are present but they will be removed in the stable relase.
+.SH AUTHOR                                                                   
+Gabriele Bonacini <g.random36@gmail.com>                            
+.SH "SEE ALSO"                                                               
+.BR openssl (1SSL)  

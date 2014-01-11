@@ -1,0 +1,10 @@
+Package: securechat
+Version: VERSION
+Section: web
+Priority: optional
+Architecture: PLATFORM
+Depends: libc6 (>= 2.3.4), libncurses5 (>= 5.7~), libssl1.0.0 (>= 1.0.0~)
+Installed-Size: 100
+Maintainer: Gabriele Bonacini <g.random36@gmail.com>
+Description: Secure Chat
+ Secure chat with openssl PLATFORM version.
