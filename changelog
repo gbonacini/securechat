@@ -1,7 +1,7 @@
 securechat (0.8.41) any; urgency=low
 
   * Beta Test
-    Added makefile and spec file to generate AIX rpm. Some minor cleaning and debugging in configuration scripts.
+    Added makefile and spec file to generate AIX rpm. Some minor cleaning.
  -- Gabriele Bonacini <g.random36@gmail.com>  Wed, 15 Jan 2014 02:59:00 -0100
 
 securechat (0.8.4) any; urgency=low
