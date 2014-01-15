@@ -38,6 +38,12 @@
 #include <termios.h>
 #include <stdarg.h>
 
+//AIX
+
+#ifdef HAVE_STDBOOL_H 
+#include <stdbool.h>
+#endif
+
 #define C_BACKSPACE 127
 #define C_NEWLINE '\n'
 #define C_TAB '\t'

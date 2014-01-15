@@ -1,0 +1,40 @@
+%define _topdir       %(pwd)/securechat-<VERSION>
+%define _tmppath      %{_topdir}/temp
+%define _builddir     %{_tmppath}
+
+%define _specdir      %{_topdir}/SPECS
+%define _rpmdir       %{_topdir}/RPMS
+%define _srcrpmdir    %{_topdir}/SRPMS
+%define _rpmfilename  %%{NAME}-%%{VERSION}-%%{RELEASE}.%%{ARCH}.rpm
+
+Name: securechat
+Version:  <VERSION>
+Release:  aix6.1
+Summary:  A simple chat program over SSL/TLS
+Group:    Applications/Internet
+License:  GPL license
+URL:      http://dynamiclib.com/
+Packager: Gabriele Bonacini
+BuildRoot: %_topdir
+BuildArch: ppc
+
+#BuildRequires:
+#Requires:
+
+%description
+a text-based client/server chat utility that uses ssl/tls (openssl) to establish an encrypted communication between the two parties.
+
+%files
+%defattr(-,root,root)
+/usr/bin/securechat
+/usr/man/man1/securechat.1
+
+%post
+chmod 755 /usr/bin/securechat
+[ -d %(echo $HOME)/.securechat ] || mkdir %(echo $HOME)/.securechat
+touch %(echo $HOME)/.securechat/TrustStore.pem
+chmod 700 %(echo $HOME)/.securechat/TrustStore.pem
+
+%postun
+rm /usr/bin/securechat
+rm /usr/man/man1/securechat.1

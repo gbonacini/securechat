@@ -1,0 +1,37 @@
+SHELLVERSION=$$(cat version)
+BIN_NAME=securechat
+BINARY=./src/$(BIN_NAME)
+MANPAGE=./securechat.1
+PREFIX=securechat-
+SPEC_IN=securechat.spec.in
+SPEC_OUT=securechat.spec
+
+all: rpm
+
+clean:
+	@echo "Cleaning ..."
+	@rm -rf $(PREFIX)$(SHELLVERSION).rpm $(PREFIX)$(SHELLVERSION) $(SPEC_OUT) $(PREFIX)$(SHELLVERSION)-aix.ppc.rpm
+	@echo "Done."
+
+rebuild: clean all 
+
+rpm: $(BINARY) $(MANPAGE) $(SPEC_IN)
+	@echo "Creating temp dirs ..."
+	@mkdir -p $(PREFIX)$(SHELLVERSION)/SPECS
+	@mkdir $(PREFIX)$(SHELLVERSION)/SOURCES
+	@mkdir $(PREFIX)$(SHELLVERSION)/BUILD
+	@mkdir $(PREFIX)$(SHELLVERSION)/RPMS
+	@mkdir $(PREFIX)$(SHELLVERSION)/SRPMS
+	@mkdir $(PREFIX)$(SHELLVERSION)/temp
+	@mkdir -p $(PREFIX)$(SHELLVERSION)/usr/man/man1
+	@mkdir -p $(PREFIX)$(SHELLVERSION)/usr/bin
+	@echo "Copying executable and man ..."
+	@cp $(MANPAGE) $(PREFIX)$(SHELLVERSION)/usr/man/man1/
+	@cp $(BINARY) $(PREFIX)$(SHELLVERSION)/usr/bin
+	@strip ./$(PREFIX)$(SHELLVERSION)/usr/bin/$(BIN_NAME)
+	@echo "Processing spec file ..."
+	@cat $(SPEC_IN) | sed -e "s/<VERSION>/$(SHELLVERSION)/g" > $(SPEC_OUT)
+	@echo "Creating rpm ..."
+	@rpm -bb $(SPEC_OUT)
+	@cp /root/securechat/$(PREFIX)$(SHELLVERSION)/RPMS/*ppc.rpm .
+	@echo "Done."

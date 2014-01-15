@@ -61,19 +61,13 @@ AC_CHECK_LIB([form],[set_field_type],[],[AC_MSG_FAILURE([could not find lib form
 AC_CHECK_LIB([form],[set_field_userptr],[],[AC_MSG_FAILURE([could not find lib form])])
 AC_CHECK_LIB([form],[set_form_sub],[],[AC_MSG_FAILURE([could not find lib form])])
 AC_CHECK_LIB([form],[set_form_win],[],[AC_MSG_FAILURE([could not find lib form])])
-AC_CHECK_LIB([form],[TYPE_INTEGER],[],[AC_MSG_FAILURE([could not find lib form])])
-AC_CHECK_LIB([form],[TYPE_REGEXP],[],[AC_MSG_FAILURE([could not find lib form])])
 AC_CHECK_LIB([form],[unpost_form],[],[AC_MSG_FAILURE([could not find lib form])])
-AC_CHECK_LIB([ncurses],[stdscr],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[delwin],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[derwin],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[cbreak],[],[AC_MSG_FAILURE([could not find lib ncurses])])
-AC_CHECK_LIB([ncurses],[COLS],[],[AC_MSG_FAILURE([could not find lib ncurses])])
-AC_CHECK_LIB([ncurses],[cur_term],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[endwin],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[init_pair],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[initscr],[],[AC_MSG_FAILURE([could not find lib ncurses])])
-AC_CHECK_LIB([ncurses],[LINES],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[mvprintw],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[newwin],[],[AC_MSG_FAILURE([could not find lib ncurses])])
 AC_CHECK_LIB([ncurses],[noecho],[],[AC_MSG_FAILURE([could not find lib ncurses])])
@@ -118,28 +112,39 @@ AC_CHECK_LIB([ssl],[SSLv23_server_method],[],[AC_MSG_FAILURE([could not find lib
 
 AC_CANONICAL_HOST
 case $host_os in
+  aix* )
+	      if test "x$CC" = xgcc; then
+		    CFLAGS=" -g -Wextra -Wall \
+                             -D_REENTRANT -D_FORTIFY_SOURCE=2 -O2 \
+                             -Wformat -Werror=format-security -L/usr/lib \
+                             -I/opt/freeware/include -I/opt/freeware/include/ncurses"
+              else
+                    CFLAGS=" -O2 -g -Wall "
+              fi
+
+        ;;
   darwin* )
 	      if test "x$CC" = xgcc; then
-		    CFLAGS=" -g -Wextra -Wall -DVERSION=\\\"$(cat version)\\\" \
+		    CFLAGS=" -g -Wextra -Wall \
                              -D_REENTRANT -D_FORTIFY_SOURCE=2 -O2 -fstack-protector \
                              --param=ssp-buffer-size=4 -Wformat -Werror=format-security -L/usr/lib "
               else
-                    CFLAGS=" -O2 -g -Wall -DVERSION=\\\"$(cat version)\\\" "
+                    CFLAGS=" -O2 -g -Wall "
               fi
 
         ;;
   linux*)
 	      if test "x$CC" = xgcc; then
-                    CFLAGS=" -g -Wextra -Wall -DVERSION=\\\"$(cat version)\\\" \
+                    CFLAGS=" -g -Wextra -Wall \
                              -D_REENTRANT -D_FORTIFY_SOURCE=2 -O2 -fstack-protector \
                              --param=ssp-buffer-size=4 -Wformat -Werror=format-security "
                     LDFLAGS="$LDFLAGS -Wl,-z,relro"
               else
-                    CFLAGS=" -O2 -g -Wall -DVERSION=\\\"$(cat version)\\\" "
+                    CFLAGS=" -O2 -g -Wall "
               fi
         ;;
     *)
-            CFLAGS=" -O2 -g -Wall -DVERSION=\\\"$(cat version)\\\" "
+            CFLAGS=" -O2 -g -Wall "
             #AC_MSG_ERROR([Your platform is not currently supported])
         ;;
 esac
