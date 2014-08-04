@@ -45,3 +45,4 @@ securechat (0.5.0) any; urgency=low
   * Beta Test 
     The beta version is ready.
  -- Gabriele Bonacini <g.random36@gmail.com>  Thu, 25 Jul 2013 05:26:00 -0100
+This file is present for compatibility with some scripts. For the actual changes, see "changelog".
