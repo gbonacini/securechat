@@ -8,6 +8,7 @@ AC_CONFIG_HEADER([include/config.h])
 
 
 AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE([disable])
 AC_CONFIG_FILES([Makefile
 		src/Makefile])
 
