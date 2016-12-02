@@ -50,14 +50,14 @@ $ ./securechat
 
 * Note: Check the $TERM environment variable if the initial screen is not correctly printed. 
 
-( see screenshoots/sc1.png )
+![alt text](screenshoots/sc1.png "securechat start")
 
 If your node has the client role, press F6 and insert in the configuration fields the IP and the port number of the remote counterpart:
 
-(see screenshoots/sc2.png )
+![alt text](screenshoots/sc2.png "securechat config")
 
 If your node has the server role, press F6 , the X key and then insert in the configuration fields the IP and the port number of the remote node. If the certificates haven't a passphrase, leave the the password fields empty:
 
-(see screenshoots/sc3.png )
+![alt text](screenshoots/sc3.png "securechat config")
 
 The arrows keys scroll the conversation log. The F5 key disconnects the chat and closes the program.
