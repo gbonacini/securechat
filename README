@@ -1,3 +1,63 @@
-Securechat is a text-based client/server chat utility  that uses ssl/tls (openssl)  to establish an encrypted communication between the two parties. It wants to be a "modern" version of the talk program, the historical text chat program on Unix.
-The program requires the generation of some certificates to operate. Consult the website (www.dynamiclib.com) and the man page for detailed instructions.
+Description:
+============
 
+Securechat is a text-based client/server chat utility  that uses ssl/tls (openssl)  to establish an encrypted communication between the two parties. It wants to be a "modern" version of the talk program, the historical text chat program on Unix.
+
+
+Configuration:
+==============
+
+The program requires the generation of some certificates to operate. 
+
+Server Certificates Configuration:
+==================================
+
+1. Create Certification Authority:
+$ mkdir $HOME/.securechat 
+$ cd $HOME/.securechat 
+$ openssl req -out ca.pem -new -x509
+
+2. Server Private Key:
+$ openssl genrsa -out server.key 4096
+
+3. Certificate Request:
+$ openssl req -key server.key -new -out server.req
+
+4. Certificate Sequence (a progressive number): 
+$ echo "11" > file.seq
+
+5. Public Key:
+$ openssl x509 -req -in server.req -CA ca.pem -CAkey privkey.pem -CAserial file.seq -out server.pem
+
+5. Only the owner of the server.key and the other private archives can be able to read or modify those files, check the permissions and change it in case of wrong privileges!
+$ chmod -R 600 * 
+
+* Note: This program support the certificate passphrase, if it is used on a shared computer, it is strongly recommended to use this feature. 
+
+Client Certificates Configuration:
+==================================
+
+Request the server.pem certificate to the server counterpart and insert that file in:
+$HOME/.securechat/TrustStore.pem 
+as explained in the man page.
+
+
+Using Securechat:
+=================
+
+After the certificates configuration, start the program from the shell, for example:
+$ ./securechat 
+
+* Note: Check the $TERM environment variable if the initial screen is not correctly printed. 
+
+![alt text](screenshoots/sc1.png "securechat start")
+
+If your node has the client role, press F6 and insert in the configuration fields the IP and the port number of the remote counterpart:
+
+![alt text](screenshoots/sc2.png "securechat config")
+
+If your node has the server role, press F6 , the X key and then insert in the configuration fields the IP and the port number of the remote node. If the certificates haven't a passphrase, leave the the password fields empty:
+
+![alt text](screenshoots/sc3.png "securechat config")
+
+The arrows keys scroll the conversation log. The F5 key disconnects the chat and closes the program.
