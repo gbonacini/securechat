@@ -14,7 +14,7 @@ Try it live:
 
 Using this link (a Github account is required), it's possible to test this program on Gitpod:
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gbonacini/libdnsquery)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gbonacini/securechat)
 
 Server Certificates Configuration:
 ==================================
