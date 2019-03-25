@@ -25,6 +25,8 @@ Using this link (a Github account is required), it's possible to test this progr
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gbonacini/securechat)
 
+The port 8866 is configured as available for the server mode.
+
 * TIP: if the Gitpod terminal results to small and the program raise an errori for this reason, try to reduce the font size of your browser with "CMD -" or equivalent technique compatible with your browser.
 
 Server Certificates Configuration:

@@ -1,4 +1,6 @@
 image:
   file: ./Dockerfile
+ports:
+- port: 8866
 tasks:
 - command: ./configure && make && ( mkdir $HOME/.securechat && cd $HOME/.securechat && openssl req -out ca.pem -new -x509 && openssl genrsa -out server.key 4096 && openssl req -key server.key -new -out server.req &&  echo "11" > file.seq && openssl x509 -req -in server.req -CA ca.pem -CAkey privkey.pem -CAserial file.seq -out server.pem &&  chmod -R 600 *  ) && ( echo '***********************************************************' ; echo '***** Maximize the terminal screen ************************' ; echo '***** then press return ***********************************' ; echo '***********************************************************' ; read ; cd /workspace/securechat/src && ./securechat ) ; stty sane
