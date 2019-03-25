@@ -3,6 +3,15 @@ Description:
 
 Securechat is a text-based client/server chat utility  that uses ssl/tls (openssl)  to establish an encrypted communication between the two parties. It wants to be a "modern" version of the talk program, the historical text chat program on Unix.
 
+Dependencies:
+=============
+
+This program requires:
+
+*  libssl1.0-dev 
+
+or equivalent package for your distribution.
+I'm planning an upgrade to 1.1 as soon I have free time.
 
 Configuration:
 ==============
