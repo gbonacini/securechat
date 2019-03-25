@@ -29,6 +29,8 @@ The port 8866 is configured as available for the server mode.
 
 * TIP: if the Gitpod terminal results to small and the program raise an errori for this reason, try to reduce the font size of your browser with "CMD -" or equivalent technique compatible with your browser.
 
+![alt text](screenshoots/gipod_securechat.png "securechat on Gitpod")
+
 Server Certificates Configuration:
 ==================================
 
