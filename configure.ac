@@ -128,7 +128,8 @@ case $host_os in
 	      if test "x$CC" = xgcc; then
 		    CFLAGS=" -g -Wextra -Wall \
                              -D_REENTRANT -D_FORTIFY_SOURCE=2 -O2 -fstack-protector \
-                             --param=ssp-buffer-size=4 -Wformat -Werror=format-security -L/usr/lib "
+                             --param=ssp-buffer-size=4 -Wformat -Werror=format-security \
+                             -I/usr/local/ssl/include/ -L/usr/lib "
               else
                     CFLAGS=" -O2 -g -Wall "
               fi
