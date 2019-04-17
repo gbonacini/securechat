@@ -9,9 +9,12 @@ Dependencies:
 This program requires:
 
 *  libssl1.0-dev 
+*  libncurses5-dev
 
 or equivalent package for your distribution.
 I'm planning an upgrade to 1.1 as soon I have free time.
+
+On OSX, an installation of openssl from sources third parties packet manager system is required.
 
 Configuration:
 ==============

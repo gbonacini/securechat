@@ -777,14 +777,10 @@ bool setContext(struct chatContext *context){
 				cleanContext(context);
 				writeSslError("Error loading trust store");
 				error=true;
-			}
+			}else{
+		                context->biop = BIO_new_ssl_connect(context->ctxp);
+                        }
 		}
-
-		if (SSL_CTX_set_cipher_list(context->ctxp, context->blackList) <= 0) {
-			printHistory(ERROR_PROMPT, "Error setting the cipher list from environment: setting default.", context);
-		}
-
-		context->biop = BIO_new_ssl_connect(context->ctxp);
 	}else{
 		context->ctxp = SSL_CTX_new(SSLv23_server_method());
 		if(context->ctxp == NULL){
@@ -815,11 +811,9 @@ bool setContext(struct chatContext *context){
 			}
 		}
 
-		if (SSL_CTX_set_cipher_list(context->ctxp, context->blackList) <= 0) {
-			printHistory(ERROR_PROMPT, "Error setting the cipher list from environment: setting default.", context);
-		}
 
 		if(!error){
+
 			context->mbiop = BIO_new_ssl(context->ctxp, 0);
 			if(context->mbiop == NULL){
 				fprintf(logStream,"Failed. Aborting.\n");
